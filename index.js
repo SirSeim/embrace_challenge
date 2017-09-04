@@ -20,6 +20,28 @@ const datesToPeople = [];
 const STARTDATE = moment.unix(1451606400);
 var previousDay = -1;
 
+const addPersonToData = (data, person, day) => {
+  if (!data[day]) {
+    data[day] = {};
+  }
+
+  if (!data[day][person]) {
+    data[day][person] = 1;
+
+    var dayCounter = day - 1;
+    while (dayCounter >= 0 && data[dayCounter] && data[dayCounter][person]) {
+      data[dayCounter][person]++;
+      dayCounter--;
+    }
+  }
+  // if (!data[day][person]) {
+  //   data[day][person] = 1;
+  //   if (data[day - 1] && data[day - 1][person]) {
+  //     data[day][person] = data[day - 1][person] + 1
+  //   }
+  // }
+};
+
 csv
   .fromPath(file)
   .on("data", (data) => {
@@ -28,20 +50,11 @@ csv
 
     const day = datetime.diff(STARTDATE, 'days');
     if (day !== previousDay) {
-      DEBUG(`Adding to day: ${day}`);
+      INFO(`Adding to day: ${day}`);
       previousDay = day;
     }
 
-    if (!datesToPeople[day]) {
-      datesToPeople[day] = {};
-    }
-
-    if (!datesToPeople[day][user]) {
-      datesToPeople[day][user] = 1;
-      if (datesToPeople[day - 1] && datesToPeople[day - 1][user]) {
-        datesToPeople[day][user] = datesToPeople[day - 1][user] + 1
-      }
-    }
+    addPersonToData(datesToPeople, user, day);
   })
   .on("end", () => {
     INFO('Done reading CSV');
@@ -55,17 +68,18 @@ csv
           usersConsecutive[day[user] - 1]++;
         }
       });
-      DEBUG(usersConsecutive);
+      DEBUG(`People in day: ${Object.keys(day).length}`);
 
       var output = `${index + 1},`;
-      const LAST_INDEX = usersConsecutive.length - 1;
-      usersConsecutive.forEach((consecutive, index) => {
-        if (index === LAST_INDEX) {
-          output += `${consecutive}`;
+      const LAST_INDEX = 13;
+      for (var consecutivePlayIndex = 0; consecutivePlayIndex < 14; consecutivePlayIndex++) {
+        var consecutive = usersConsecutive[consecutivePlayIndex];
+        if (consecutivePlayIndex === LAST_INDEX) {
+          output += `${consecutive || 0}`;
         } else {
-          output += `${consecutive},`;
+          output += `${consecutive || 0},`;
         }
-      });
+      }
       console.log(output);
     });
   });
