@@ -1,0 +1,19 @@
+{
+  "name": "embrace_challenge",
+  "version": "0.0.0",
+  "description": "Embrace.io Coding Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirSeim/embrace_challenge.git"
+  },
+  "author": "Edward Seim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SirSeim/embrace_challenge/issues"
+  },
+  "homepage": "https://github.com/SirSeim/embrace_challenge#readme"
+}
