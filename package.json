@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SirSeim/embrace_challenge/issues"
   },
-  "homepage": "https://github.com/SirSeim/embrace_challenge#readme"
+  "homepage": "https://github.com/SirSeim/embrace_challenge#readme",
+  "dependencies": {
+    "csvreader": "^1.0.2"
+  }
 }
