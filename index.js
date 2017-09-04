@@ -34,12 +34,6 @@ const addPersonToData = (data, person, day) => {
       dayCounter--;
     }
   }
-  // if (!data[day][person]) {
-  //   data[day][person] = 1;
-  //   if (data[day - 1] && data[day - 1][person]) {
-  //     data[day][person] = data[day - 1][person] + 1
-  //   }
-  // }
 };
 
 csv
